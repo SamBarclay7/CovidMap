@@ -6,4 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".ListActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spnSortBy"
+                android:layout_width="329dp"
+                android:layout_height="46dp" />
+
+            <Button
+                android:id="@+id/btnAsc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/arrow" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lstList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
