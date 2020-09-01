@@ -2,10 +2,7 @@ package com.example.covidmap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -15,11 +12,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.Reader;
-import java.io.StringReader;
 
 
 public class MainActivity extends AppCompatActivity {
