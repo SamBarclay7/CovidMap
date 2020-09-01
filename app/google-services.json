@@ -34,35 +34,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:924230621044:android:43b87fd5ba77f761727e21",
-        "android_client_info": {
-          "package_name": "com.example.covidmap"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "924230621044-o36rsjmjv4shpk296qgcf2nv6ci1u0kn.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBj-MH_UkceGyygJuJ3THgWbGDlGni5-8I"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "924230621044-o36rsjmjv4shpk296qgcf2nv6ci1u0kn.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"
