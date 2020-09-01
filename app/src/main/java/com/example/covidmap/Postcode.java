@@ -1,5 +1,6 @@
 package com.example.covidmap;
 
+import android.util.Log;
 
 public class Postcode {
     private int postcode;
