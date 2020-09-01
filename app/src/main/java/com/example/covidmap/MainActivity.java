@@ -42,12 +42,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.d("Networking", "Downloading data");
-                        /*try {
-                            FileOutputStream fos = getApplicationContext().openFileOutput("dataFile", Context.MODE_PRIVATE);
-                            fos.write(response.getBytes("UTF-8"));
-                        } catch(Exception e) {
-                            Log.d("File exception", "Probably no permissions");
-                        }*/
                         insertData(response);
                     }
                 }, new Response.ErrorListener() {
@@ -64,5 +58,6 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper db = new DatabaseHelper(this);
         db.addBulk(data);
         db.close();
+        Log.d("SQL", "Done inserting data");
     }
 }

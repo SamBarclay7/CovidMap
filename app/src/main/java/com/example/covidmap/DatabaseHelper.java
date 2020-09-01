@@ -85,14 +85,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
 
-        assert cursor != null;
-        cursor.close();
+        Postcode postcode = new Postcode(cursor.getInt(0),
 
-        return new Postcode(cursor.getInt(0),
                 cursor.getInt(1),
                 cursor.getInt(2),
                 cursor.getInt(3),
                 cursor.getInt(4),
                 cursor.getInt(5));
+        assert cursor != null;
+        cursor.close();
+
+        return postcode;
     }
 }
