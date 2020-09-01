@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CovidMap</string>
+    <string name="arrow">↑</string>
 </resources>
