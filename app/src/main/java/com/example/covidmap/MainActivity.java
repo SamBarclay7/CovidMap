@@ -3,9 +3,14 @@ package com.example.covidmap;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -18,19 +23,32 @@ import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView tv;
+
+    ImageButton listActivityButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv = (TextView) findViewById(R.id.textView);
+
+        listActivityButton = (ImageButton) findViewById(R.id.listActivityButton);
 
         getData();
 
         DatabaseHelper db = new DatabaseHelper(this);
-        tv.setText(db.getRow(3031).toString());
+
+
+
+
+        listActivityButton.setOnClickListener(new View.OnClickListener()
+        {
+
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ListActivity.class));
+            }
+
+        });
     }
 
     private void getData() {

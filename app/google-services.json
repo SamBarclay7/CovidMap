@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:924230621044:android:0e1f8e9ea4d2defe727e21",
         "android_client_info": {
-          "package_name": "com.android.covidmap"
+          "package_name": "com.example.covidmap"
         }
       },
       "oauth_client": [
