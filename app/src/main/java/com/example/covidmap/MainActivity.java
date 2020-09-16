@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     ImageButton listActivityButton;
-
+    Button showDataActivityButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,24 +33,26 @@ public class MainActivity extends AppCompatActivity {
 
 
         listActivityButton = (ImageButton) findViewById(R.id.listActivityButton);
-
+        showDataActivityButton = findViewById(R.id.showDataActivityButton);
         getData();
 
         DatabaseHelper db = new DatabaseHelper(this);
 
 
-
-
-        listActivityButton.setOnClickListener(new View.OnClickListener()
-        {
+        listActivityButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, ListActivity.class));
             }
 
         });
-    }
+        showDataActivityButton.setOnClickListener(new View.OnClickListener() {
 
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ShowDataActivity.class));
+            }
+        });
+    }
     private void getData() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String  url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwXSqlP56q78lZKxc092o6UuIyi7VqOIQj6RM4QmlVPgtJZfbgzv0a3X7wQQkhNu8MFolhVwMy4VnF/pub?gid=0&single=true&output=csv";
