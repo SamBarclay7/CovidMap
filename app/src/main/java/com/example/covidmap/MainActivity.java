@@ -1,10 +1,13 @@
 package com.example.covidmap;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,16 +34,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Get location permissions right off the bat
+        getPermissions(Manifest.permission.ACCESS_FINE_LOCATION);
 
         listActivityButton = (ImageButton) findViewById(R.id.listActivityButton);
 
+        //Download the data and put it into the database
         getData();
 
-        DatabaseHelper db = new DatabaseHelper(this);
-
-
-
-
+        //List button takes you to the list activity
         listActivityButton.setOnClickListener(new View.OnClickListener()
         {
 
@@ -49,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void getPermissions(String permission) {
+        if(ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("Permissions", "Permission \"" + permission + "\" is not granted, requesting");
+            ActivityCompat.requestPermissions(this, new String[]{permission}, 333);
+        } else {
+            Log.d("Permissions", "Permission \"" + permission + "\" is granted");
+        }
     }
 
     private void getData() {
