@@ -24,7 +24,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MapsFragment extends Fragment {
@@ -51,7 +50,7 @@ public class MapsFragment extends Fragment {
             mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
             //Check for permissions
             if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-            !mFusedLocationClient.getLastLocation().isSuccessful()) {
+                    !mFusedLocationClient.getLastLocation().isSuccessful()) {
                 getLastLocation();
             } else {
                 //If no permissions, focus on Melbourne
@@ -62,38 +61,21 @@ public class MapsFragment extends Fragment {
 
         @SuppressLint("MissingPermission")
         private void getLastLocation() {
-            mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new
-                    OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                LatLng loc = new LatLng(location.getLatitude(),
-                                        location.getLongitude());
-                                //focus map to current location
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15)); // zoom
-                            }
-                        }
-                    });
-
-            // on location updates
-            locationCallback = new LocationCallback() {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                 @Override
-                public void onLocationResult(LocationResult locationResult) {
-                    if (locationResult == null) {
-                        return;
-                    }
-                    for (Location location : locationResult.getLocations()) {
-                        if (location != null) {
-                            double latitude = location.getLatitude();
-                            double longitude = location.getLongitude();
-                            LatLng latLng = new LatLng(latitude, longitude);
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        LatLng loc = new LatLng(location.getLatitude(),
+                                location.getLongitude());
+                        //focus map to current location
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15)); // zoom
 
-                            //refocus the map to the new location
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                        }
+                        //Show current location
+                        mMap.setMyLocationEnabled(true);
+
                     }
                 }
-            };
+            });
         }
     };
 

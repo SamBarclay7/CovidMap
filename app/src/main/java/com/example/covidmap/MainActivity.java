@@ -37,20 +37,19 @@ public class MainActivity extends AppCompatActivity {
         //Get location permissions right off the bat
         getPermissions(Manifest.permission.ACCESS_FINE_LOCATION);
 
-        listActivityButton = (ImageButton) findViewById(R.id.listActivityButton);
+        //listActivityButton = (ImageButton) findViewById(R.id.listActivityButton);
 
         //Download the data and put it into the database
         getData();
 
         //List button takes you to the list activity
-        listActivityButton.setOnClickListener(new View.OnClickListener()
-        {
+      //  listActivityButton.setOnClickListener(new View.OnClickListener()
+        //{
+          //  public void onClick(View view) {
+              //  startActivity(new Intent(MainActivity.this, ListActivity.class));
+            //}
 
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ListActivity.class));
-            }
-
-        });
+        //});
     }
 
     private void getPermissions(String permission) {
