@@ -19,6 +19,11 @@ public class Postcode {
         this.newCases = newCases;
     }
 
+    public Postcode(){
+
+    }
+
+
     public int getPostcode() {
         return postcode;
     }
@@ -52,5 +57,30 @@ public class Postcode {
                 ", rate=" + rate +
                 ", newCases=" + newCases +
                 '}';
+    }
+
+    public void setPostcode(int postcode)
+    {
+        this.postcode   =   postcode;
+    }
+    public void setPopulation(int   population)
+    {
+        this.population =   population;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public void setCases(int cases) {
+        this.cases = cases;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public void setNewCases(int newCases) {
+        this.newCases = newCases;
     }
 }
