@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     ImageButton listActivityButton;
-    TextView tvTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         listActivityButton = (ImageButton) findViewById(R.id.listActivityButton);
         Toast.makeText(this.getApplicationContext(),"onCreate1",Toast.LENGTH_SHORT).show();
-        tvTest = (TextView) findViewById(R.id.tvTest);
         //Download the data and put it into the database
         getData();
 
@@ -105,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         db.addBulk(data);
         Toast.makeText(this.getApplicationContext(),"insertData3",Toast.LENGTH_SHORT).show();
 //        db.insertLocationData();
-        tvTest.setText(db.getRow2(3000).toString());
         Toast.makeText(this.getApplicationContext(),"insertData4",Toast.LENGTH_SHORT).show();//Isn't showing this toast
         db.close();
         Log.d("SQL", "Done inserting data");
