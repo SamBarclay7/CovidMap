@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,19 +38,18 @@ public class MainActivity extends AppCompatActivity {
         //Get location permissions right off the bat
         getPermissions(Manifest.permission.ACCESS_FINE_LOCATION);
 
-        //listActivityButton = (ImageButton) findViewById(R.id.listActivityButton);
 
         //Download the data and put it into the database
         getData();
 
-        //List button takes you to the list activity
-      //  listActivityButton.setOnClickListener(new View.OnClickListener()
-        //{
-          //  public void onClick(View view) {
-              //  startActivity(new Intent(MainActivity.this, ListActivity.class));
-            //}
-
-        //});
+        //Floating action button to go to list view
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ListActivity.class));
+            }
+        });
     }
 
     private void getPermissions(String permission) {
