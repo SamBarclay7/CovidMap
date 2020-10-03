@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -44,20 +45,18 @@ public class MainActivity extends AppCompatActivity {
         //Get location permissions right off the bat
         getPermissions(Manifest.permission.ACCESS_FINE_LOCATION);
 
-        listActivityButton = (ImageButton) findViewById(R.id.listActivityButton);
-        Toast.makeText(this.getApplicationContext(),"onCreate1",Toast.LENGTH_SHORT).show();
+
         //Download the data and put it into the database
         getData();
 
-        //List button takes you to the list activity
-        listActivityButton.setOnClickListener(new View.OnClickListener()
-        {
-
+        //Floating action button to go to list view
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, ListActivity.class));
             }
-
         });
 
 

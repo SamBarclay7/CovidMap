@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.opencsv.CSVReader;
 
@@ -15,6 +16,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -187,6 +190,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
+
+
+
+
+    // code to get all contacts in a list view
+    public List<Postcode> getAllPostcodes() {
+        List<Postcode> postcodeList = new ArrayList<Postcode>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Postcode contact = new Postcode();
+                contact.setPostcode((cursor.getInt(0)));
+                contact.setPopulation((cursor.getInt(1)));
+                contact.setActive((cursor.getInt(2)));
+                contact.setCases((cursor.getInt(3)));
+                contact.setRate(cursor.getDouble(4));
+                contact.setNewCases((cursor.getInt(5)));
+
+                // Adding contact to list
+               postcodeList.add(contact);
+
+               Log.d("Working message", "THis is working");
+            } while (cursor.moveToNext());
+        }
+
+        // return contact list
+        return postcodeList;
+    }
     public Postcode getRow(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
