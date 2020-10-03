@@ -158,31 +158,5 @@ public class MapsFragment extends Fragment {
 
 
 
-//        List<Postcode> allPCs = db.getAllPostcodes();
-//        for (int i = 0; i < allPCs.size(); ++i)
-//        {
-//
-//            PCLList.add(db.getRow2(allPCs.get(i).getPostcode()));
-//
-//
-////
-////            if(db.getRow2(i) == null)
-////            {
-////
-////            }
-////            else
-////            {
-//                Log.d("TEST", "made to genMarkers else");
-////                PCLList = db.getRow2(i);
-//                lat = PCLList.get(i).getLat();
-//                lng = PCLList.get(i).getLng();
-//                ll = new LatLng(lat, lng);
-//                Marker marker = mMap.addMarker(new MarkerOptions()
-//                        .position(ll)
-//                        .title(Integer.toString(PCLList.get(i).getPc())));
-////            }
-//
-//
-//        }
     }
 }

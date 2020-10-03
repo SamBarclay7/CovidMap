@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, ListActivity.class));
 
 
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getPermissions(String permission) {
-        Toast.makeText(this.getApplicationContext(),"getPerms",Toast.LENGTH_SHORT).show();
         if(ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
             Log.d("Permissions", "Permission \"" + permission + "\" is not granted, requesting");
             ActivityCompat.requestPermissions(this, new String[]{permission}, 333);
@@ -77,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        Toast.makeText(this.getApplicationContext(),"getData",Toast.LENGTH_SHORT).show();
         RequestQueue queue = Volley.newRequestQueue(this);
         String  url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwXSqlP56q78lZKxc092o6UuIyi7VqOIQj6RM4QmlVPgtJZfbgzv0a3X7wQQkhNu8MFolhVwMy4VnF/pub?gid=0&single=true&output=csv";
 
@@ -103,16 +100,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void insertData(String data) throws IOException {
-        Toast.makeText(this.getApplicationContext(),"insertData",Toast.LENGTH_SHORT).show();
         DatabaseHelper db = new DatabaseHelper(this);
-        Toast.makeText(this.getApplicationContext(),"insertData2",Toast.LENGTH_SHORT).show();
         db.addBulk(data);
-        Toast.makeText(this.getApplicationContext(),"insertData3",Toast.LENGTH_SHORT).show();
 //        db.insertLocationData();
-        Toast.makeText(this.getApplicationContext(),"insertData4",Toast.LENGTH_SHORT).show();//Isn't showing this toast
         db.close();
         Log.d("SQL", "Done inserting data");
-        Toast.makeText(this.getApplicationContext(),"Hello insertData",Toast.LENGTH_SHORT).show();
 //        genMarkers(db);
     }
 
