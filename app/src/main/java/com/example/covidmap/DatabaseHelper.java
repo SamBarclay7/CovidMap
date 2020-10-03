@@ -33,6 +33,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_LONGITUDE = "longitude";
     private static final String KEY_LOCATION_POSTCODE = "postcode";
 
+    private int locationSize = 0;
+
     //https://www.corra.com.au/australian-postcode-location-data/
 
     public DatabaseHelper(Context context) {
@@ -41,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("TEST", "made to onCreate");
+//        Log.d("TEST", "made to onCreate");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         String CREATE_CASES_TABLE = "CREATE TABLE " + TABLE_NAME +  "(" +
                 KEY_POSTCODE + " INTEGER PRIMARY KEY," +
@@ -51,15 +53,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 KEY_RATE + " REAL," +
                 KEY_NEW + " INTEGER" + ")";
         db.execSQL(CREATE_CASES_TABLE);
-        Log.d("TEST", "made to onCreate2");
+//        Log.d("TEST", "made to onCreate2");
         db.execSQL("DROP TABLE IF EXISTS " + LOCATION_TABLE_NAME);
         String CREATE_LOCATION_TABLE = "CREATE TABLE " + LOCATION_TABLE_NAME + "(" +
                 KEY_LOCATION_POSTCODE + " INTEGER PRIMARY KEY," +
                 KEY_LATITUDE + " REAL," +
                 KEY_LONGITUDE + " REAL" + ")";
-        Log.d("TEST", "made to onCreate3");
+//        Log.d("TEST", "made to onCreate3");
         db.execSQL(CREATE_LOCATION_TABLE);
-        Log.d("TEST", "made to onCreate4");
+//        Log.d("TEST", "made to onCreate4");
         try {
             insertLocationData(db);
         } catch (IOException e) {
@@ -69,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertLocationData(SQLiteDatabase db) throws IOException
     {
-        Log.d("TEST", "made it to insertLocationData");
+//        Log.d("TEST", "made it to insertLocationData");
 //        SQLiteDatabase db = this.getWritableDatabase();
         //Drop the table if we have new data
 
@@ -81,7 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         Scanner sc = new Scanner(am.open("postcode_locations.csv"));
-        Log.d("TEST", "made it to insertLocationData22");
+//        Log.d("TEST", "made it to insertLocationData22");
 
 
 
@@ -91,15 +93,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String last = "";
             while(sc.hasNextLine())
             {
-                Log.d("TEST", "made it to insertLocationData2");
+//                Log.d("TEST", "made it to insertLocationData2");
                 ContentValues values = new ContentValues();
                 String[] split = sc.nextLine().split(",");
                 if(!last.equals(split[0])) {
 
+                    locationSize ++;
 
                     last = split[0];
 
-                    Log.d("TEST2", split[0]);
+//                    Log.d("TEST2", split[0]);
 
                     values.put(KEY_LOCATION_POSTCODE, split[0]);
                     values.put(KEY_LATITUDE, split[1]);
@@ -133,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Send all the data to this and it'll add it to the database. Discards the first line and then
         //Adds the rest to one long transaction
         SQLiteDatabase db = this.getWritableDatabase();
-        Log.d("TEST", "made it to add bulk");
+//        Log.d("TEST", "made it to add bulk");
 
         //Drop the table if we have new data
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
@@ -214,7 +217,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(LOCATION_TABLE_NAME,
                 new String[]{KEY_LOCATION_POSTCODE,KEY_LATITUDE,KEY_LONGITUDE},
-                KEY_POSTCODE + "=?",
+                KEY_LOCATION_POSTCODE + "=?",
                 new String[]{String.valueOf(id)},null,null,null,null);
         if(cursor != null) {
             cursor.moveToFirst();
@@ -230,5 +233,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
 
         return PCL;
+    }
+
+
+    public int getLocationSize()
+    {
+        return locationSize;
+    }
+
+
+    public boolean checkId(int id)
+    {
+//        SQLiteDatabase db = this.getReadableDatabase();
+////        String select = "SELECT " + KEY_LOCATION_POSTCODE + " FROM " + LOCATION_TABLE_NAME;
+//        for(int i = 0; i < locationSize; ++i)
+//        {
+//
+//            if(PCLocation.getPc() == id)
+//            {
+//                //SEARCH DATABASE FOR ID TO CHECK IF IT EXISTS
+//                //IF IT DOES EXIST RETURN TRUE
+//
+//            }
+//        }
+//
+//        return false;
+
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Log.d("TEST23", "checkId1");
+        Cursor cursor = db.query(LOCATION_TABLE_NAME,
+                new String[]{KEY_LOCATION_POSTCODE,KEY_LATITUDE,KEY_LONGITUDE},
+                KEY_LOCATION_POSTCODE + "=?",
+                new String[]{String.valueOf(id)},null,null,null,null);
+        Log.d("TEST23", "checkId2");
+        if(cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        assert cursor != null;
+
+
+//       if(cursor.getInt(0) == null)
+//       {
+//
+//       }
+
+        cursor.close();
+        return true;
     }
 }

@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 
@@ -107,8 +110,39 @@ public class MainActivity extends AppCompatActivity {
         db.close();
         Log.d("SQL", "Done inserting data");
         Toast.makeText(this.getApplicationContext(),"Hello insertData",Toast.LENGTH_SHORT).show();
+        genMarkers(db);
+    }
+
+
+    private void genMarkers(DatabaseHelper db)
+    {
+        double lat;
+        double lng;
+        int size = db.getLocationSize();
+        LatLng ll;
+        Log.d("TEST23", "checkId0");
+        boolean y = db.checkId(1000);
+        Log.d("TEST23", "checkId01");
+        for (int i = 3000; i < 9000; ++i) {
+
+//            lat = location.getLatitude();
+//            lng = location.getLongitude();
+//            latlang = new LatLng(latitude, longitude);
+//
+//            marker = mMap.addMarker(new MarkerOptions()
+//                    .position(latlang)
+//                    .title(location.getName()));
+
+//            db.getPCLocation()
+//            if(db.getRow2() == null)
+
+
+//            lat = db.getRow2().getLat();
+//            ll =
+//                    marker = mMap.addMarker(new MarkerOptions().position(db.getPCLocation()))
+        }
+    }
     }
 
 
 
-}
