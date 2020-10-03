@@ -13,6 +13,13 @@ public class PCLocation
         this.lng = lng;
     }
 
+    public PCLocation()
+    {
+
+    }
+
+
+
     public int getPc() {
         return pc;
     }

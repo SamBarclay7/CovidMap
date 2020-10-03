@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 14;
     private static final String DATABASE_NAME = "cases";
     private static final String TABLE_NAME = "casesPostcode";
     private static final String KEY_POSTCODE = "postcode";
@@ -251,7 +251,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public PCLocation getRow2(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-
+        Log.d("TEST", "getRow2");
         Cursor cursor = db.query(LOCATION_TABLE_NAME,
                 new String[]{KEY_LOCATION_POSTCODE,KEY_LATITUDE,KEY_LONGITUDE},
                 KEY_LOCATION_POSTCODE + "=?",
@@ -276,6 +276,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int getLocationSize()
     {
         return locationSize;
+    }
+
+    public List<PCLocation> getAllPostcodeLocations() {
+        List<PCLocation> postcodeList = new ArrayList<PCLocation>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + LOCATION_TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                PCLocation contact = new PCLocation();
+//                contact.setPostcode((cursor.getInt(0)));
+//                contact.setPopulation((cursor.getInt(1)));
+//                contact.setActive((cursor.getInt(2)));
+//                contact.setCases((cursor.getInt(3)));
+//                contact.setRate(cursor.getDouble(4));
+//                contact.setNewCases((cursor.getInt(5)));
+                contact.setPc((cursor.getInt(0)));
+                contact.setLat(cursor.getDouble(1));
+                contact.setLat(cursor.getDouble(2));
+
+
+                // Adding contact to list
+                postcodeList.add(contact);
+
+                Log.d("Working message", "THis is working");
+            } while (cursor.moveToNext());
+        }
+
+        // return contact list
+        return postcodeList;
     }
 
 
