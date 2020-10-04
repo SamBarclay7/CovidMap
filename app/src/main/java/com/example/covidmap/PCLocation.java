@@ -1,5 +1,7 @@
 package com.example.covidmap;
 
+import android.util.Log;
+
 public class PCLocation
 {
     private int pc;
@@ -37,6 +39,7 @@ public class PCLocation
     }
 
     public double getLng() {
+        Log.d("TEST23", "lngFROMPCLOCATION " + lng);
         return lng;
     }
 

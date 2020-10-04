@@ -38,7 +38,7 @@ import java.util.List;
 
 public class MapsFragment extends Fragment {
 
-    private GoogleMap mMap;
+    private static GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback locationCallback;
     private LocationRequest mLocationRequest;
@@ -71,15 +71,25 @@ public class MapsFragment extends Fragment {
                 LatLng melbourne = new LatLng(-37, 144);
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(melbourne));
             }
-            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-                @Override
-                public void onMapLoaded() {
+
+
+            if(mMap != null){
+                mMap = mMap;
+                mMap.getUiSettings().setMapToolbarEnabled(true);
+            }
+//            genMarkers();
+
+
+//            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+//                @Override
+//                public void onMapLoaded() {
 
 //Add markers here
-                    genMarkers();
 
-                }
-            });
+
+//                }
+
+
         }
 
         @SuppressLint("MissingPermission")
@@ -121,42 +131,55 @@ public class MapsFragment extends Fragment {
 
     }
 
-    private void genMarkers()
+//    private void genMarkers()
+//    {
+//
+//
+//                Log.d("TEST", "made to genMarkers");
+//                DatabaseHelper db = new DatabaseHelper(App.getmContext());
+//                double lat;
+//                double lng;
+//                int size = db.getLocationSize();
+//                LatLng ll;
+//                Log.d("TEST23", "checkId0");
+//                boolean y = db.checkId(1000);
+//                Log.d("TEST23", "checkId01");
+//
+////        List<PCLocation> PCLList = new ArrayList<PCLocation>();
+//                List<PCLocation> PCLList2 = db.getAllPostcodeLocations();
+//                List<Postcode> allPCs = db.getAllPostcodes();
+//                Log.d("TEST23", "allPCs size: " + allPCs.size());
+//                Log.d("TEST23", "PCLList2 size: " + PCLList2.size());
+//                Log.d("TEST23", "checkId01");
+//                Log.d("TEST23", "PC " + allPCs.get(0).getPostcode());
+//                Log.d("TEST23", "PCL " + PCLList2.get(0).getPc());
+//        Log.d("TEST23", "checkId01");
+////        LatLng testll = new LatLng(PCLList2.get(0).getLat(), PCLList2.get(0).getLat());
+////        Marker marker = this.mMap.addMarker(new MarkerOptions().position(testll));
+//        LatLng testll2 = new LatLng(-37.811090,144.958430);
+//        Marker marker = this.mMap.addMarker(new MarkerOptions().position(testll2).title("yeet"));
+//        Log.d("TEST23", "checkId022");
+//                mMap.clear();
+////                for (int i = 0; i < allPCs.size(); ++i) {
+////
+////
+////                    lat = PCLList2.get(i).getLat();
+////                    lng = PCLList2.get(i).getLng();
+////                    ll = new LatLng(lat, lng);
+////
+////                    Marker marker = this.mMap.addMarker(new MarkerOptions()
+////                            .position(ll)
+////                            .title(Integer.toString(PCLList2.get(i).getPc()) + "\nActive: " + allPCs.get(i).getActive() + "\nTotal: " + allPCs.get(i).getCases()));
+////                    Log.d("TEST", "made to genMarkers2");
+////                }
+//
+//
+//
+//
+//    }
+
+    public static GoogleMap getMap()
     {
-
-
-                Log.d("TEST", "made to genMarkers");
-                DatabaseHelper db = new DatabaseHelper(App.getmContext());
-                double lat;
-                double lng;
-                int size = db.getLocationSize();
-                LatLng ll;
-                Log.d("TEST23", "checkId0");
-                boolean y = db.checkId(1000);
-                Log.d("TEST23", "checkId01");
-
-//        List<PCLocation> PCLList = new ArrayList<PCLocation>();
-                List<PCLocation> PCLList2 = db.getAllPostcodeLocations();
-                List<Postcode> allPCs = db.getAllPostcodes();
-                Log.d("TEST23", Integer.toString(allPCs.size()));
-                Log.d("TEST23", Integer.toString(PCLList2.size()));
-                Log.d("TEST23", "checkId01");
-                mMap.clear();
-                for (int i = 0; i < allPCs.size(); ++i) {
-
-
-                    lat = PCLList2.get(i).getLat();
-                    lng = PCLList2.get(i).getLng();
-                    ll = new LatLng(lat, lng);
-
-                    Marker marker = this.mMap.addMarker(new MarkerOptions()
-                            .position(ll)
-                            .title(Integer.toString(PCLList2.get(i).getPc()) + "\nActive: " + allPCs.get(i).getActive() + "\nTotal: " + allPCs.get(i).getCases()));
-                    Log.d("TEST", "made to genMarkers2");
-                }
-
-
-
-
+        return mMap;
     }
 }

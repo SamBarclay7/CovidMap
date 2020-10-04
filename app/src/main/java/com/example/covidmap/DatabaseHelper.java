@@ -110,6 +110,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     values.put(KEY_LOCATION_POSTCODE, split[0]);
                     values.put(KEY_LATITUDE, split[1]);
                     values.put(KEY_LONGITUDE, split[2]);
+                    if(Integer.parseInt(split[0]) == 3000 || Integer.parseInt(split[0]) == 3001)
+                    {
+                        Log.d("TEST23", "\n\nlat: " + split[1] + "\nlng: " + split[2] + "yeet");
+                    }
 
                     db.insert(LOCATION_TABLE_NAME, null, values);
                 }
@@ -290,15 +294,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 PCLocation contact = new PCLocation();
-//                contact.setPostcode((cursor.getInt(0)));
-//                contact.setPopulation((cursor.getInt(1)));
-//                contact.setActive((cursor.getInt(2)));
-//                contact.setCases((cursor.getInt(3)));
-//                contact.setRate(cursor.getDouble(4));
-//                contact.setNewCases((cursor.getInt(5)));
+
                 contact.setPc((cursor.getInt(0)));
                 contact.setLat(cursor.getDouble(1));
-                contact.setLat(cursor.getDouble(2));
+                contact.setLng(cursor.getDouble(2));
+                if(cursor.getInt(0) == 3000 || cursor.getInt(0) == 3001)
+                {
+                    Log.d("TEST23", "\n\nlat: " + cursor.getDouble(1) + "\nlng: " + cursor.getDouble(2) + "yeetyeet");
+                }
+
 
 
                 // Adding contact to list
