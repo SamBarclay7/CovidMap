@@ -1,20 +1,11 @@
 package com.example.covidmap;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,12 +15,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.libraries.places.api.Places;
 
 import java.util.Arrays;
 
@@ -39,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     PlacesClient placesClient;
     MapsFragment mapsFragment;
     final String PTAG="Places";
+    final String STAG="SQL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper db = new DatabaseHelper(this);
         db.addBulk(data);
         db.close();
-        Log.d("SQL", "Done inserting data");
+        Log.d(STAG, "Done inserting data");
     }
 
     private void focusMap(Place place) {
