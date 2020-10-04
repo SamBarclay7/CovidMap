@@ -50,6 +50,7 @@ public class PostcodeAdapter    extends RecyclerView.Adapter<PostcodeAdapter.Vie
         holder.active.setText(String.valueOf(postcode.getActive()));
         holder.cases.setText(String.valueOf(postcode.getCases()));
         holder.rate.setText(String.valueOf(postcode.getRate()));
+        holder.newCases.setText(String.valueOf(postcode.getNewCases()));
     }
 
 
