@@ -1,35 +1,14 @@
 package com.example.covidmap;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.StateListDrawable;
-import android.location.Location;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,34 +17,30 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.io.IOException;
-import java.util.List;
-
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.maps.android.ui.BubbleIconFactory;
 import com.google.maps.android.ui.IconGenerator;
 
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
     PlacesClient placesClient;
     MapsFragment mapsFragment;
-    final String PTAG="Places";
-    final String STAG="SQL";
+    final String PTAG = "Places";
+    final String STAG = "SQL";
     private GoogleMap mMap;
 
 
@@ -114,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ListActivity.class));
 
 
-
-
             }
         });
 
@@ -131,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getData() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String  url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwXSqlP56q78lZKxc092o6UuIyi7VqOIQj6RM4QmlVPgtJZfbgzv0a3X7wQQkhNu8MFolhVwMy4VnF/pub?gid=0&single=true&output=csv";
+        String url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTwXSqlP56q78lZKxc092o6UuIyi7VqOIQj6RM4QmlVPgtJZfbgzv0a3X7wQQkhNu8MFolhVwMy4VnF/pub?gid=0&single=true&output=csv";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -157,9 +130,9 @@ public class MainActivity extends AppCompatActivity {
     private void insertData(String data) throws IOException {
         DatabaseHelper db = new DatabaseHelper(this);
         db.addBulk(data);
-//        db.insertLocationData();
         db.close();
         Log.d(STAG, "Done inserting data");
+        genMarkers();
     }
 
     private void focusMap(Place place) {
@@ -171,17 +144,15 @@ public class MainActivity extends AppCompatActivity {
         mapsFragment.focusLatLng(coords);
     }
 
-    private void genMarkers2()
-    {
+    private void genMarkers() {
         MapsFragment mapsFragment = new MapsFragment();
-        mMap =  MapsFragment.getMap();
+        mMap = MapsFragment.getMap();
         Log.d("TEST", "made to genMarkers");
         DatabaseHelper db = new DatabaseHelper(App.getmContext());
         double lat;
         double lng;
         int size = db.getLocationSize();
         LatLng ll;
-//        Log.d("TEST23", "checkId0");
         boolean y = db.checkId(1000);
 
         List<PCLocation> PCLList2 = db.getAllPostcodeLocations();
@@ -191,38 +162,23 @@ public class MainActivity extends AppCompatActivity {
         Log.d("TEST23", "lng " + PCLList2.get(0).getLng());
         Log.d("TEST23", "checkId022");
         mMap.clear();
-                for (int i = 0; i < allPCs.size(); ++i) {
+        for (int i = 0; i < allPCs.size(); ++i) {
 
-                    IconGenerator mIconGenerator = new IconGenerator(this);
-//                    mIconGenerator.setContentView(mImageView);
+            IconGenerator mIconGenerator = new IconGenerator(this);
 
+            Bitmap iconBitmap = mIconGenerator.makeIcon(Integer.toString(PCLList2.get(i).getPc()) + "\nActive: " + allPCs.get(i).getActive() + "\nTotal: " + allPCs.get(i).getCases() + "\nNew: " + allPCs.get(i).getNewCases());
 
-                    Bitmap iconBitmap = mIconGenerator.makeIcon(Integer.toString(PCLList2.get(i).getPc()) + "\nActive: " + allPCs.get(i).getActive() + "\nTotal: " + allPCs.get(i).getCases() + "\nNew: " + allPCs.get(i).getNewCases());
+            TextView title = new TextView(this);
 
+            lat = PCLList2.get(i).getLat();
+            lng = PCLList2.get(i).getLng();
+            ll = new LatLng(lat, lng);
+            Log.d("TEST23", "lat " + PCLList2.get(i).getLat());
+            Log.d("TEST23", "lng " + PCLList2.get(i).getLng());
 
-                    TextView title = new TextView(this);
-
-                    lat = PCLList2.get(i).getLat();
-                    lng = PCLList2.get(i).getLng();
-                    ll = new LatLng(lat, lng);
-                    Log.d("TEST23", "lat " + PCLList2.get(i).getLat());
-                    Log.d("TEST23", "lng " + PCLList2.get(i).getLng());
-
-                    Marker marker = this.mMap.addMarker(new MarkerOptions()
-                            .position(ll)
-                            .title(Integer.toString(PCLList2.get(i).getPc()) + "\nActive: " + allPCs.get(i).getActive() + "\nTotal: " + allPCs.get(i).getCases()).icon(BitmapDescriptorFactory.fromBitmap(iconBitmap)));
-
-//                    Log.d("TEST", "made to genMarkers2");
-
-                }
-
+            Marker marker = this.mMap.addMarker(new MarkerOptions()
+                    .position(ll)
+                    .title(Integer.toString(PCLList2.get(i).getPc()) + "\nActive: " + allPCs.get(i).getActive() + "\nTotal: " + allPCs.get(i).getCases()).icon(BitmapDescriptorFactory.fromBitmap(iconBitmap)));
+        }
     }
-
-
-
-
-
-    }
-
-
-
+}
