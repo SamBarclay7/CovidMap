@@ -45,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Get location permissions right off the bat
-        getPermissions(Manifest.permission.ACCESS_FINE_LOCATION);
-
         //Grab maps fragment
         mapsFragment = (MapsFragment) getSupportFragmentManager().findFragmentById(R.id.maps_fragment);
 
@@ -95,15 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 mapsFragment.focusCurrent();
             }
         });
-    }
-
-    private void getPermissions(String permission) {
-        if(ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("Permissions", "Permission \"" + permission + "\" is not granted, requesting");
-            ActivityCompat.requestPermissions(this, new String[]{permission}, 333);
-        } else {
-            Log.d("Permissions", "Permission \"" + permission + "\" is granted");
-        }
     }
 
     private void getData() {

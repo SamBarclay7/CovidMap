@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,8 @@ public class MapsFragment extends Fragment {
         public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
             mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+            //Get location permissions right off the bat
+            getPermissions(Manifest.permission.ACCESS_FINE_LOCATION);
             //Check for permissions
             if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                     !mFusedLocationClient.getLastLocation().isSuccessful()) {
@@ -98,12 +101,22 @@ public class MapsFragment extends Fragment {
         }
     }
 
+    private void getPermissions(String permission) {
+        if(ActivityCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("Permissions", "Permission \"" + permission + "\" is not granted, requesting");
+            ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, 333);
+        } else {
+            Log.d("Permissions", "Permission \"" + permission + "\" is granted");
+        }
+    }
+
     public void focusLatLng(LatLng loc) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, ZOOM));
     }
 
     @SuppressLint("MissingPermission")
     public void focusCurrent() {
+        getPermissions(Manifest.permission.ACCESS_FINE_LOCATION);
         mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
@@ -112,6 +125,8 @@ public class MapsFragment extends Fragment {
                             location.getLongitude());
                     //focus map to current location
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, ZOOM)); // zoom
+
+                    mMap.setMyLocationEnabled(true);
                 }
             }
         });
