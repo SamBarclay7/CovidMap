@@ -32,6 +32,7 @@ public class MapsFragment extends Fragment {
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback locationCallback;
     private LocationRequest mLocationRequest;
+    final int ZOOM=15;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -68,7 +69,7 @@ public class MapsFragment extends Fragment {
                         LatLng loc = new LatLng(location.getLatitude(),
                                 location.getLongitude());
                         //focus map to current location
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15)); // zoom
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, ZOOM)); // zoom
 
                         //Show current location
                         mMap.setMyLocationEnabled(true);
@@ -95,5 +96,24 @@ public class MapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+    }
+
+    public void focusLatLng(LatLng loc) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, ZOOM));
+    }
+
+    @SuppressLint("MissingPermission")
+    public void focusCurrent() {
+        mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    LatLng loc = new LatLng(location.getLatitude(),
+                            location.getLongitude());
+                    //focus map to current location
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, ZOOM)); // zoom
+                }
+            }
+        });
     }
 }
