@@ -201,12 +201,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Postcode> getAllPostcodes(Order order) {
+        return getAllPostcodes(order, false);
+    }
+
+    public List<Postcode> getAllPostcodes(Order order, boolean descending) {
         List<Postcode> postcodeList = new ArrayList<Postcode>();
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_NAME,
                 new String[]{KEY_POSTCODE, KEY_POPULATION, KEY_ACTIVE, KEY_CASES, KEY_RATE, KEY_NEW},
-                null, null, null, null, String.valueOf(order).toLowerCase(), null);
+                null, null, null, null,
+                String.valueOf(order).toLowerCase() + (descending? " DESC":""), null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
