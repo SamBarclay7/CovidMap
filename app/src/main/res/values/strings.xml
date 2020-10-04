@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">CovidMap</string>
     <string name="arrow">↑</string>
+    <string name="postcode">Postcode</string>
+    <string name="population">Population</string>
+    <string name="cases">Cases</string>
+    <string name="new_cases">New Cases</string>
+    <string name="active">Active</string>
+    <string name="rate">Rate</string>
+    <string-array name="spinner_array">
+        <item>Postcode</item>
+        <item>Population</item>
+        <item>Cases</item>
+        <item>New Cases</item>
+        <item>Active Cases</item>
+        <item>Growth Rate</item>
+    </string-array>
 </resources>
