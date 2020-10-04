@@ -28,10 +28,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CASES_TABLE = "CREATE TABLE " + TABLE_NAME +  "(" +
+        String CREATE_CASES_TABLE = "CREATE TABLE " + TABLE_NAME + "(" +
                 KEY_POSTCODE + " INTEGER PRIMARY KEY," +
                 KEY_POPULATION + " INTEGER," +
-                KEY_ACTIVE + " INTEGER,"+
+                KEY_ACTIVE + " INTEGER," +
                 KEY_CASES + " INTEGER," +
                 KEY_RATE + " REAL," +
                 KEY_NEW + " INTEGER" + ")";
@@ -78,9 +78,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
-
-
     // code to get all contacts in a list view
     public List<Postcode> getAllPostcodes() {
         List<Postcode> postcodeList = new ArrayList<Postcode>();
@@ -102,23 +99,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 contact.setNewCases((cursor.getInt(5)));
 
                 // Adding contact to list
-               postcodeList.add(contact);
+                postcodeList.add(contact);
 
-               Log.d("Working message", "THis is working");
+                Log.d("Working message", "THis is working");
             } while (cursor.moveToNext());
         }
 
         // return contact list
         return postcodeList;
     }
+
     public Postcode getRow(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME,
-                new String[]{KEY_POSTCODE,KEY_POPULATION,KEY_ACTIVE, KEY_CASES,KEY_RATE,KEY_NEW},
+                new String[]{KEY_POSTCODE, KEY_POPULATION, KEY_ACTIVE, KEY_CASES, KEY_RATE, KEY_NEW},
                 KEY_POSTCODE + "=?",
-                new String[]{String.valueOf(id)},null,null,null,null);
-        if(cursor != null) {
+                new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor != null) {
             cursor.moveToFirst();
         }
 
