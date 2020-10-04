@@ -12,5 +12,3 @@
 /captures
 .externalNativeBuild
 .cxx
-/app/src/debug/res/values/google_maps_key.xml
-/app/src/main/res/values/googleMapsKey.xml
