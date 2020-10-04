@@ -24,18 +24,27 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapsFragment extends Fragment {
 
-    private GoogleMap mMap;
+    private static GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback locationCallback;
     private LocationRequest mLocationRequest;
     final int ZOOM=15;
 
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
+    private OnMapReadyCallback callback = new OnMapReadyCallback()  {
 
         /**
          * Manipulates the map once available.
@@ -49,6 +58,7 @@ public class MapsFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
+
             mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
             //Get location permissions right off the bat
             getPermissions(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -56,11 +66,33 @@ public class MapsFragment extends Fragment {
             if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                     !mFusedLocationClient.getLastLocation().isSuccessful()) {
                 getLastLocation();
+
+
+
             } else {
                 //If no permissions, focus on Melbourne
                 LatLng melbourne = new LatLng(-37, 144);
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(melbourne));
             }
+
+
+            if(mMap != null){
+                mMap = mMap;
+                mMap.getUiSettings().setMapToolbarEnabled(true);
+            }
+//            genMarkers();
+
+
+//            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+//                @Override
+//                public void onMapLoaded() {
+
+//Add markers here
+
+
+//                }
+
+
         }
 
         @SuppressLint("MissingPermission")
@@ -99,6 +131,59 @@ public class MapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+
+    }
+
+//    private void genMarkers()
+//    {
+//
+//
+//                Log.d("TEST", "made to genMarkers");
+//                DatabaseHelper db = new DatabaseHelper(App.getmContext());
+//                double lat;
+//                double lng;
+//                int size = db.getLocationSize();
+//                LatLng ll;
+//                Log.d("TEST23", "checkId0");
+//                boolean y = db.checkId(1000);
+//                Log.d("TEST23", "checkId01");
+//
+////        List<PCLocation> PCLList = new ArrayList<PCLocation>();
+//                List<PCLocation> PCLList2 = db.getAllPostcodeLocations();
+//                List<Postcode> allPCs = db.getAllPostcodes();
+//                Log.d("TEST23", "allPCs size: " + allPCs.size());
+//                Log.d("TEST23", "PCLList2 size: " + PCLList2.size());
+//                Log.d("TEST23", "checkId01");
+//                Log.d("TEST23", "PC " + allPCs.get(0).getPostcode());
+//                Log.d("TEST23", "PCL " + PCLList2.get(0).getPc());
+//        Log.d("TEST23", "checkId01");
+////        LatLng testll = new LatLng(PCLList2.get(0).getLat(), PCLList2.get(0).getLat());
+////        Marker marker = this.mMap.addMarker(new MarkerOptions().position(testll));
+//        LatLng testll2 = new LatLng(-37.811090,144.958430);
+//        Marker marker = this.mMap.addMarker(new MarkerOptions().position(testll2).title("yeet"));
+//        Log.d("TEST23", "checkId022");
+//                mMap.clear();
+////                for (int i = 0; i < allPCs.size(); ++i) {
+////
+////
+////                    lat = PCLList2.get(i).getLat();
+////                    lng = PCLList2.get(i).getLng();
+////                    ll = new LatLng(lat, lng);
+////
+////                    Marker marker = this.mMap.addMarker(new MarkerOptions()
+////                            .position(ll)
+////                            .title(Integer.toString(PCLList2.get(i).getPc()) + "\nActive: " + allPCs.get(i).getActive() + "\nTotal: " + allPCs.get(i).getCases()));
+////                    Log.d("TEST", "made to genMarkers2");
+////                }
+//
+//
+//
+//
+//    }
+
+    public static GoogleMap getMap()
+    {
+        return mMap;
     }
 
     private void getPermissions(String permission) {
