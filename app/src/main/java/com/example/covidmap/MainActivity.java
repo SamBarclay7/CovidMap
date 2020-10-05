@@ -169,8 +169,8 @@ public class MainActivity extends AppCompatActivity {
             lat = PCLList2.get(i).getLat();
             lng = PCLList2.get(i).getLng();
             ll = new LatLng(lat, lng);
-            Log.d("TEST23", "lat " + PCLList2.get(i).getLat());
-            Log.d("TEST23", "lng " + PCLList2.get(i).getLng());
+            //Log.d("TEST23", "lat " + PCLList2.get(i).getLat());
+            //Log.d("TEST23", "lng " + PCLList2.get(i).getLng());
 
             Marker marker = this.mMap.addMarker(new MarkerOptions()
                     .position(ll)
