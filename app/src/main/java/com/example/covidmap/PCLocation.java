@@ -39,7 +39,7 @@ public class PCLocation
     }
 
     public double getLng() {
-        Log.d("TEST23", "lngFROMPCLOCATION " + lng);
+        //Log.d("TEST23", "lngFROMPCLOCATION " + lng);
         return lng;
     }
 

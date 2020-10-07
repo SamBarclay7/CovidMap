@@ -18,23 +18,14 @@ import android.view.ViewGroup;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MapsFragment extends Fragment {
 
@@ -80,19 +71,6 @@ public class MapsFragment extends Fragment {
                 mMap = mMap;
                 mMap.getUiSettings().setMapToolbarEnabled(true);
             }
-//            genMarkers();
-
-
-//            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-//                @Override
-//                public void onMapLoaded() {
-
-//Add markers here
-
-
-//                }
-
-
         }
 
         @SuppressLint("MissingPermission")
@@ -133,53 +111,6 @@ public class MapsFragment extends Fragment {
         }
 
     }
-
-//    private void genMarkers()
-//    {
-//
-//
-//                Log.d("TEST", "made to genMarkers");
-//                DatabaseHelper db = new DatabaseHelper(App.getmContext());
-//                double lat;
-//                double lng;
-//                int size = db.getLocationSize();
-//                LatLng ll;
-//                Log.d("TEST23", "checkId0");
-//                boolean y = db.checkId(1000);
-//                Log.d("TEST23", "checkId01");
-//
-////        List<PCLocation> PCLList = new ArrayList<PCLocation>();
-//                List<PCLocation> PCLList2 = db.getAllPostcodeLocations();
-//                List<Postcode> allPCs = db.getAllPostcodes();
-//                Log.d("TEST23", "allPCs size: " + allPCs.size());
-//                Log.d("TEST23", "PCLList2 size: " + PCLList2.size());
-//                Log.d("TEST23", "checkId01");
-//                Log.d("TEST23", "PC " + allPCs.get(0).getPostcode());
-//                Log.d("TEST23", "PCL " + PCLList2.get(0).getPc());
-//        Log.d("TEST23", "checkId01");
-////        LatLng testll = new LatLng(PCLList2.get(0).getLat(), PCLList2.get(0).getLat());
-////        Marker marker = this.mMap.addMarker(new MarkerOptions().position(testll));
-//        LatLng testll2 = new LatLng(-37.811090,144.958430);
-//        Marker marker = this.mMap.addMarker(new MarkerOptions().position(testll2).title("yeet"));
-//        Log.d("TEST23", "checkId022");
-//                mMap.clear();
-////                for (int i = 0; i < allPCs.size(); ++i) {
-////
-////
-////                    lat = PCLList2.get(i).getLat();
-////                    lng = PCLList2.get(i).getLng();
-////                    ll = new LatLng(lat, lng);
-////
-////                    Marker marker = this.mMap.addMarker(new MarkerOptions()
-////                            .position(ll)
-////                            .title(Integer.toString(PCLList2.get(i).getPc()) + "\nActive: " + allPCs.get(i).getActive() + "\nTotal: " + allPCs.get(i).getCases()));
-////                    Log.d("TEST", "made to genMarkers2");
-////                }
-//
-//
-//
-//
-//    }
 
     public static GoogleMap getMap()
     {

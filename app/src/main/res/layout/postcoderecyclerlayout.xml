@@ -3,59 +3,73 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#A39DF3"
+    app:cardBackgroundColor="#FFFFFF"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/dataLayout"
+        <TextView
+            android:id="@+id/postcodeTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginStart="4dp"
+            android:text="postcode"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/postcodeTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="postcode" />
+        <TextView
+            android:id="@+id/populationTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:text="population"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@id/postcodeTV"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/populationTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="population" />
+        <TextView
+            android:id="@+id/casesTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:text="cases"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@id/populationTV"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/activeTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="active" />
-            <TextView
-                android:id="@+id/casesTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="cases" />
-            <TextView
-                android:id="@+id/rateTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="rate" />
-            <TextView
-                android:id="@+id/newCasesTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="newCases" />
+        <TextView
+            android:id="@+id/newCasesTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:text="newCases"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@id/casesTV"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/activeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:text="active"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@id/newCasesTV"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-    </LinearLayout>
+        <TextView
+            android:id="@+id/rateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:text="rate"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@id/activeTV"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

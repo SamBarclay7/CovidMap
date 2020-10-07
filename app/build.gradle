@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
     compileSdkVersion 30
@@ -38,7 +40,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    implementation 'com.google.android.gms:play-services-base:17.3.0'
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+    implementation 'com.google.firebase:firebase-perf:19.0.9'
     implementation 'com.android.volley:volley:1.1.1'
 
     // Utilities for Maps SDK for Android (requires Google Play Services)

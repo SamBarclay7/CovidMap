@@ -197,12 +197,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // code to get all contacts in a list view
     public List<Postcode> getAllPostcodes() {
+        return getAllPostcodes(Order.POSTCODE);
+    }
+
+    public List<Postcode> getAllPostcodes(Order order) {
+        return getAllPostcodes(order, false);
+    }
+
+    public List<Postcode> getAllPostcodes(Order order, boolean descending) {
         List<Postcode> postcodeList = new ArrayList<Postcode>();
-        // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{KEY_POSTCODE, KEY_POPULATION, KEY_ACTIVE, KEY_CASES, KEY_RATE, KEY_NEW},
+                null, null, null, null,
+                String.valueOf(order).toLowerCase() + (descending? " DESC":""), null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {

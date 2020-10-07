@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
     private void genMarkers() {
         MapsFragment mapsFragment = new MapsFragment();
         mMap = MapsFragment.getMap();
-        Log.d("TEST", "made to genMarkers");
         DatabaseHelper db = new DatabaseHelper(App.getmContext());
         double lat;
         double lng;
@@ -158,9 +157,6 @@ public class MainActivity extends AppCompatActivity {
         List<PCLocation> PCLList2 = db.getAllPostcodeLocations();
         List<Postcode> allPCs = db.getAllPostcodes();
 
-        Log.d("TEST23", "lat " + PCLList2.get(0).getLat());
-        Log.d("TEST23", "lng " + PCLList2.get(0).getLng());
-        Log.d("TEST23", "checkId022");
         mMap.clear();
         for (int i = 0; i < allPCs.size(); ++i) {
 
@@ -173,8 +169,8 @@ public class MainActivity extends AppCompatActivity {
             lat = PCLList2.get(i).getLat();
             lng = PCLList2.get(i).getLng();
             ll = new LatLng(lat, lng);
-            Log.d("TEST23", "lat " + PCLList2.get(i).getLat());
-            Log.d("TEST23", "lng " + PCLList2.get(i).getLng());
+            //Log.d("TEST23", "lat " + PCLList2.get(i).getLat());
+            //Log.d("TEST23", "lng " + PCLList2.get(i).getLng());
 
             Marker marker = this.mMap.addMarker(new MarkerOptions()
                     .position(ll)
